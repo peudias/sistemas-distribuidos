@@ -1,0 +1,24 @@
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: &#128512;<br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: oi!<br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font><b>grita: </b> <font size='+2'>OI</font><br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: &#128513;<br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: &#128526;<br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: <br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font><font size='+1' color='red'><b><u>xinga: ASD</u></b></font><br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font><font size='+1' color='red'><b><u>xinga: X-X</u></b></font><br>
+<img src='/pacote/images/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>pedro </b></font>fala: <img src='images/coracao.png' width='15' height='15'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>pedro </b></font>fala: &#10084;<br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: <br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: <br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: <br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: &#128521;<br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: <br><img src='images/" + figurinhaSelecionada + "' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>asd </b></font>fala: <br><img src='images/" + figurinhaSelecionada + "' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>das </b></font>fala: <br><img src='images/coracao.png' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>das </b></font>fala: <br><img src='images/dinheiro.png' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>qwe </b></font>fala: <br><img src='images/sonic-thumbs-up.gif' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>qwe </b></font>fala: <br><img src='images/danca.gif' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='green'><b>qwe </b></font>fala: <br><img src='images/funny.gif' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>PEDRO </b></font>fala: <br><img src='images/sonic-thumbs-up.gif' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>PEDRO </b></font>fala: <br><img src='images/danca.gif' width='64' height='64'><br>
+<img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>PEDRO </b></font>fala: &#10084;<br>
