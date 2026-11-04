@@ -1,0 +1,31 @@
+# Maven: saída do build (.class, .war, .jar gerados)
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# NetBeans: configurações pessoais da máquina
+nbproject/private/
+nbactions*.xml
+nb-configuration.local.xml
+.nb-gradle/
+
+# Outras IDEs
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Java: logs e dumps de falha da JVM
+*.log
+hs_err_pid*
+replay_pid*
+
+# Sistema operacional
+Thumbs.db
+Desktop.ini
+.DS_Store
