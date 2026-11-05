@@ -4,6 +4,11 @@
  */
 package pacote;
 
+import pacote.Threads.DesktopRecepcaoThreads;
+import pacote.Threads.DesktopEnvioThreads;
+import pacote.Threads.WebRecepcaoThreads;
+import pacote.Threads.WebEnvioThreads;
+
 /**
  *
  * @author LuanLuL
@@ -187,8 +192,14 @@ public class PainelDeControle extends javax.swing.JFrame {
     private void btnControlWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnControlWebActionPerformed
         if(btnControlWeb.isSelected()){
             btnControlWeb.setText("Desativar");
+            Util.threadWebRecepcaoThreads = new WebRecepcaoThreads();
+            Util.threadWebEnvioThreads = new WebEnvioThreads();
+            Thread.ofVirtual().start(Util.threadWebRecepcaoThreads);
+            Thread.ofVirtual().start(Util.threadWebEnvioThreads);
         } else {
             btnControlWeb.setText("Ativar");
+            Util.threadWebRecepcaoThreads.fecharServidor();
+            Util.threadWebEnvioThreads.fecharServidor();
         }
     }//GEN-LAST:event_btnControlWebActionPerformed
 

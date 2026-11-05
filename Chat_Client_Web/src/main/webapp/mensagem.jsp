@@ -4,8 +4,8 @@
     Author     : phpdi
 --%>
 
-<%@page import="java.io.ObjectOutputStream"%>
-<%@page import="java.net.Socket"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URI"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,12 +22,20 @@
                 msg += " diz: " + request.getParameter("txtMsg") + "<img src=\"" + request.getParameter("cbEmoji") + "\" width=\"30\" height=\"30\">";
                 msg += "<br>";
             
-                Socket socket = new Socket("127.0.0.1", 6662);
-                ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
-                output.flush();
-                output.writeUTF(msg);
-                output.close();
-                socket.close();
+                try{
+                    HttpURLConnection conexao = (HttpURLConnection) URI.create("http://127.0.0.1:6664/mensagens").toURL().openConnection();
+                    conexao.setReadTimeout(3000);
+                    conexao.setRequestMethod("POST");
+                    conexao.setDoOutput(true);
+                    conexao.getOutputStream().write(msg.getBytes("UTF-8"));
+                    int status = conexao.getResponseCode();
+                    conexao.disconnect();
+                    if(status != 200){
+                        out.print("<p style='color:red'>A mensagem não foi gravada no servidor. Tente enviar novamente.</p>");
+                    }
+                } catch(Exception error){
+                    out.print("<p style='color:red'>Servidor em manutenção... aguarde.</p>");
+                }
             }
         %>
         <form name="frmMsg" method="post" actions="mensagem.jsp">

@@ -4,8 +4,8 @@
     Author     : phpdi
 --%>
 
-<%@page import="java.io.ObjectInputStream"%>
-<%@page import="java.net.Socket"%>
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URI"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,12 +16,15 @@
     </head>
     <body>
         <%
-            Socket socket = new Socket("127.0.0.1", 6661);
-            ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
-            String conversa = input.readUTF();
-            input.close();
-            socket.close();
-            out.print(conversa);
+            try{
+                HttpURLConnection conexao = (HttpURLConnection) URI.create("http://127.0.0.1:6663/mensagens").toURL().openConnection();
+                conexao.setReadTimeout(3000);
+                String conversa = new String(conexao.getInputStream().readAllBytes(), "UTF-8");
+                conexao.disconnect();
+                out.print(conversa);
+            } catch(Exception error){
+                out.print("<h2 style='color:red'>Servidor em manutenção... aguarde.</h2>");
+            }
         %>
     </body>
 </html>

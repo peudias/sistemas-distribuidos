@@ -1,5 +1,4 @@
-
-package pacote;
+package pacote.Threads;
 
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
@@ -7,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
+import pacote.Util;
 
 public class DesktopRecepcaoThreads implements Runnable {
     private Util utils;

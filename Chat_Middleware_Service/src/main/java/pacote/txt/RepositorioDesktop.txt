@@ -41,3 +41,5 @@
 <img src='/pacote/images/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>AAAAAAAZZZ </b></font>fala: a<br>
 <img src="null" width="30" height="30"><font size="+1" color="purple"><b>qweqweqwe</font></b> diz: bb<img src="" width="30" height="30"><br>
 <img src="null" width="30" height="30"><font size="+1" color="purple"><b>qweqweqwe</font></b> diz: ads<img src="" width="30" height="30"><br>
+<img src="null" width="30" height="30"><font size="+1" color="purple"><b>312</font></b> diz: oii<img src="" width="30" height="30"><br>
+<img src='/pacote/images/AvatarMulher.png' width='24px' height='24px'> <font color='blue'><b>qweas </b></font>fala: falaa 312<br>
