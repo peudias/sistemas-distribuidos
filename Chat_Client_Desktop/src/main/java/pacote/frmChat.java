@@ -186,19 +186,29 @@ public class frmChat extends javax.swing.JFrame {
         for (Object[] e : EMOJIS) {
             this.msg = this.msg.replace((String) e[0], "&#" + e[1] + ";");
         }
-
-        inputTxtMensagem.setText("");
-        selectModo.setSelectedIndex(0);
-        // selectEmoji.setSelectedIndex(0);
-        figurinhaSelecionada = null;
-
+        
         try {
-            // Socket client = new Socket("200.128.141.103", 6662);
             Socket client = new Socket("localhost", 6662);
+            client.setSoTimeout(3000);
+            
             ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
             output.writeUTF(this.msg);
-            output.close();
+            output.flush();
+            
+            ObjectInputStream input = new ObjectInputStream(client.getInputStream());
+            String resposta = input.readUTF();
+            input.close();
             client.close();
+            
+            if(resposta.equals("OK")){
+                inputTxtMensagem.setText("");
+                selectModo.setSelectedIndex(0);
+                // selectEmoji.setSelectedIndex(0);
+                figurinhaSelecionada = null;
+            } else {
+                JOptionPane.showMessageDialog(null, "A mensagem não foi gravada no servidor. Tente enviar novamente.");
+            }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "FrmChat::gerarAndEnviarMsg(): Erro " + e.getMessage());
             e.printStackTrace();

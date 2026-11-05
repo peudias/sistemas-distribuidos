@@ -3,6 +3,7 @@ package pacote;
 
 import java.io.FileWriter;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JOptionPane;
@@ -25,21 +26,49 @@ public class DesktopRecepcaoThreads implements Runnable {
             this.receptor.bind(new java.net.InetSocketAddress(utils.getPortaRecepcaoDesktop()));
             while(!this.statusServidor){
                 this.client = receptor.accept();
-                ObjectInputStream reader = new ObjectInputStream(client.getInputStream());
-                String mensagem = reader.readUTF();
-                reader.close();
-                this.client.close();
-                String arquivo = utils.getPathDesktopTxt();
-                FileWriter fwriter = new FileWriter(arquivo, true);
-                fwriter.write(mensagem);
-                fwriter.write(System.lineSeparator());
-                fwriter.close();
+                Socket conexao = this.client;
+                Thread.ofVirtual().start(() -> {
+                    try(conexao){
+                        ObjectInputStream reader = new ObjectInputStream(conexao.getInputStream());
+                        String mensagem = reader.readUTF();
+                        String arquivo = utils.getPathDesktopTxt();
+                        try {
+                            synchronized(Util.mensagensDesktop){
+                                try(FileWriter fwriter = new FileWriter(arquivo, true)){
+                                    fwriter.write(mensagem);
+                                    fwriter.write(System.lineSeparator());
+                                }
+                                Util.mensagensDesktop.add(mensagem);
+                            }
+                        } catch(Exception error){
+                            responderCliente(conexao, "ERRO");
+                            throw error;
+                        }
+                        responderCliente(conexao, "OK");
+                        reader.close();
+                    } catch(Exception error){
+                        if(!this.statusServidor){
+                            System.out.println("DesktopRecepcaoThreads::run: Error " + error.getMessage());
+                            JOptionPane.showMessageDialog(null, "DesktopRecepcaoThreads::run: Error " + error.getMessage());
+                        }
+                    }
+                });
             }
         } catch(Exception error){
             if(!this.statusServidor){
                 System.out.println("DesktopRecepcaoThreads::run: Error " + error.getMessage());
                 JOptionPane.showMessageDialog(null, "DesktopRecepcaoThreads::run: Error " + error.getMessage());
             }
+        }
+    }
+    
+    private void responderCliente(Socket conexao, String resposta){
+        try{
+            ObjectOutputStream output = new ObjectOutputStream(conexao.getOutputStream());
+            output.writeUTF(resposta);
+            output.flush();
+        } catch(Exception error){
+            System.out.println("DesktopRecepcaoThreads::responderCliente: Error " + error.getMessage());
         }
     }
     

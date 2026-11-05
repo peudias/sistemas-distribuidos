@@ -1,7 +1,5 @@
 package pacote;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,24 +19,22 @@ public class DesktopEnvioThreads implements Runnable {
     @Override
     public void run() {
         try{
-            // while(true){
             emissor = new ServerSocket();
             emissor.setReuseAddress(true);
             emissor.bind(new java.net.InetSocketAddress(utils.getPortaEnvioDesktop()));
             while(!this.statusServidor){ // melhorar performance - quando chega uma msg, servidor grava no disco;
                 client = emissor.accept(); //acabou de gravar no disco? precisa disponibilizar as msg, mas nao quero acessar o disco de armazenamento a cada iteração. apenas quando chegar uma msg nova. estrutura de dados na memoria ram do middleware. gravou no disco, atualizou, a memoria ram atualiza e toda hora que alguem for buscar mensagem, pega da memoria ram.
-                FileReader fReader = new FileReader(utils.getPathDesktopTxt());
-                BufferedReader buffer = new BufferedReader(fReader);
-                String msgs = "";
-                while(buffer.ready()){
-                    msgs += buffer.readLine();
-                }
-                buffer.close();
-                fReader.close();
-                ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());
-                output.writeUTF(msgs);
-                output.close();
-                client.close();
+                Socket conexao = client;
+                Thread.ofVirtual().start(() -> {
+                    try(conexao){
+                        String msgs = Util.lerMensagensDesktop();
+                        ObjectOutputStream output = new ObjectOutputStream(conexao.getOutputStream());
+                        output.writeUTF(msgs);
+                        output.close();
+                    } catch (Exception error){
+                        System.out.println("DesktopEnvioThreads::Run: Error " + error.getMessage());
+                    }
+                });
             }
             emissor.close();
         } catch(Exception error){
@@ -48,7 +44,7 @@ public class DesktopEnvioThreads implements Runnable {
             }
         }
     }
-    
+        
     public void fecharServidor(){
         this.statusServidor = true;
         try{
