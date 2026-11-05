@@ -49,6 +49,7 @@ public class WebRecepcaoThreads implements Runnable {
                 } catch(Exception error){
                     if(!this.statusServidor){
                         System.out.println("WebRecepcaoThreads::run: Error " + error.getMessage());
+                        Util.registrarErro("web", "WebRecepcaoThreads:run", error);
                         JOptionPane.showMessageDialog(null, "WebRecepcaoThreads::run: Error " + error.getMessage());
                     }
                 }
@@ -57,6 +58,7 @@ public class WebRecepcaoThreads implements Runnable {
         } catch(Exception error){
             if(!this.statusServidor){
                 System.out.println("WebRecepcaoThreads::run: Error " + error.getMessage());
+                Util.registrarErro("web", "WebRecepcaoThreads:run", error);
                 JOptionPane.showMessageDialog(null, "WebRecepcaoThreads::run: Error " + error.getMessage());
             }
         }
@@ -67,6 +69,7 @@ public class WebRecepcaoThreads implements Runnable {
             conexao.sendResponseHeaders(status, -1);
         } catch(Exception error){
             System.out.println("WebRecepcaoThreads::responderCliente: Error " + error.getMessage());
+            Util.registrarErro("web", "WebRecepcaoThreads:responderCliente", error);
         }
     }
     

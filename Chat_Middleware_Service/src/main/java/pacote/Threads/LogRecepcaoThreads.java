@@ -62,12 +62,14 @@ public class LogRecepcaoThreads implements Runnable {
                     responderCliente(conexao, 200);
                 } catch(Exception error){
                     System.out.println("LogRecepcaoThreads::run: Error " + error.getMessage());
+                    Util.registrarErro("logs", "LogRecepcaoThreads:run", error);
                 }
             });
             this.receptor.start();
         } catch(Exception error){
             if(!this.statusServidor){
                 System.out.println("LogRecepcaoThreads::run: Error " + error.getMessage());
+                Util.registrarErro("logs", "LogRecepcaoThreads:run", error);
                 JOptionPane.showMessageDialog(null, "LogRecepcaoThreads::run: Error " + error.getMessage());
             }
         }
@@ -78,6 +80,7 @@ public class LogRecepcaoThreads implements Runnable {
             conexao.sendResponseHeaders(status, -1);
         } catch(Exception error){
             System.out.println("LogRecepcaoThreads::responderCliente: Error " + error.getMessage());
+            Util.registrarErro("logs", "LogRecepcaoThreads:responderCliente", error);
         }
     }
     

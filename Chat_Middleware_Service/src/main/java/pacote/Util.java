@@ -8,6 +8,11 @@ import pacote.Threads.LogRecepcaoThreads;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileWriter;
+import java.net.InetAddress;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Util {
    private static int portaEnvioDesktop = 6661;
@@ -79,4 +84,24 @@ public class Util {
        }
        return msgs.toString();
    }
+   
+    // Registra um erro do próprio Middleware no arquivo do serviço onde ele aconteceu.
+    // Grava direto no arquivo, sem passar pelo coletor, para funcionar mesmo com o coletor desligado.
+    // O synchronized impede que erros simultâneos se misturem no arquivo.
+    public static synchronized void registrarErro(String servico, String classeMetodo, Exception erro){
+        try{
+            InetAddress maquina = InetAddress.getLocalHost();
+            String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            String registro = dataHora + " | " + maquina.getHostName() + " | " + maquina.getHostAddress() + " | " + classeMetodo + " | " + erro;
+            new File(pathLogs).mkdirs();
+            // O true acrescenta no fim do arquivo, sem apagar os registros anteriores
+            try(FileWriter fwriter = new FileWriter(pathLogs + "server_middleware_" + servico + ".log", true)){
+                fwriter.write(registro.replaceAll("[\\r\\n]+", " "));
+                fwriter.write(System.lineSeparator());
+                fwriter.write(System.lineSeparator());
+            }
+        } catch(Exception error){
+            System.out.println("Util::registrarErro: Error " + error.getMessage());
+        }
+    }
 }

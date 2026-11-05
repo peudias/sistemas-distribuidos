@@ -34,6 +34,7 @@ public class DesktopEnvioThreads implements Runnable {
                         output.close();
                     } catch (Exception error){
                         System.out.println("DesktopEnvioThreads::Run: Error " + error.getMessage());
+                        Util.registrarErro("desktop", "DesktopEnvioThreads:run", error);
                     }
                 });
             }
@@ -41,6 +42,7 @@ public class DesktopEnvioThreads implements Runnable {
         } catch(Exception error){
             if(!this.statusServidor){
                 System.out.println("DesktopEnvioThreads::run: Error " + error.getMessage());
+                Util.registrarErro("desktop", "DesktopEnvioThreads:run", error);
                 JOptionPane.showMessageDialog(null, "DesktopEnvioThreads::run: Error " + error.getMessage());
             }
         }

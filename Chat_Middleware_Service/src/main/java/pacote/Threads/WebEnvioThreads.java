@@ -30,12 +30,14 @@ public class WebEnvioThreads implements Runnable {
                     conexao.getResponseBody().write(msgs);
                 } catch(Exception error){
                     System.out.println("WebEnvioThreads::run: Error " + error.getMessage());
+                    Util.registrarErro("web", "WebEnvioThreads:run", error);
                 }
             });
             emissor.start();
         } catch(Exception error){
             if(!this.statusServidor){
                 System.out.println("WebEnvioThreads::run: Error " + error.getMessage());
+                Util.registrarErro("web", "WebEnvioThreads:run", error);
                 JOptionPane.showMessageDialog(null, "WebEnvioThreads::run: Error " + error.getMessage());
             }
         }
