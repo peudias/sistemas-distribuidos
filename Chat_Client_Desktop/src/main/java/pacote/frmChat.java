@@ -72,15 +72,23 @@ public class frmChat extends javax.swing.JFrame {
         });
     }
 
+    // Etapa 3: as mensagens guardam só o caminho /figurinhas/, sem o endereço do servidor.
+    // O navegador já resolve esse caminho sozinho; aqui o Desktop completa com a URL do servidor Web.
     private String resolverImagens(String html) {
-        java.net.URL pasta = frmChat.class.getResource("/pacote/images/");
-        if (pasta == null) {
-            return html;
-        }
-        return html.replace("src='/pacote/images/", "src='" + pasta)
-                .replace("src='images/", "src='" + pasta);
+        return html.replace("'/figurinhas/", "'" + Util.urlFigurinhas)
+                .replace("\"/figurinhas/", "\"" + Util.urlFigurinhas);
     }
-
+    
+    // Etapa 3: as figurinhas saíram do .jar e agora são carregadas por URL do servidor Web.
+    private java.net.URL urlFigurinha(String nome) {
+        try {
+            return java.net.URI.create(Util.urlFigurinhas + nome).toURL();
+        } catch (Exception error) {
+            System.out.println("FrmChat::urlFigurinha: Error " + error.getMessage());
+            return null;
+        }
+    }
+    
     private void montarPopupEmojis() {
         javax.swing.JPanel grade = new javax.swing.JPanel(new java.awt.GridLayout(0, 4, 2, 2));
         javax.swing.JPanel gradeFigurinhas = new javax.swing.JPanel(new java.awt.GridLayout(0, 3, 2, 2));
@@ -108,7 +116,7 @@ public class frmChat extends javax.swing.JFrame {
         abas.addTab("Emojis", grade);
 
         for (String nome : FIGURINHAS) {
-            java.net.URL url = frmChat.class.getResource("/pacote/images/" + nome);
+            java.net.URL url = urlFigurinha(nome);
             java.awt.Image img = new javax.swing.ImageIcon(url).getImage().getScaledInstance(48, 48, java.awt.Image.SCALE_SMOOTH);
             javax.swing.JButton b = new javax.swing.JButton(new javax.swing.ImageIcon(img));
             b.setFocusable(false);
@@ -124,7 +132,7 @@ public class frmChat extends javax.swing.JFrame {
         abas.addTab("Figurinhas", gradeFigurinhas);
 
         for (String nome : GIFS) {
-            java.net.URL url = frmChat.class.getResource("/pacote/images/" + nome);
+            java.net.URL url = urlFigurinha(nome);
             java.awt.Image img = new javax.swing.ImageIcon(url).getImage().getScaledInstance(64, 64, java.awt.Image.SCALE_DEFAULT);
             javax.swing.JButton b = new javax.swing.JButton(new javax.swing.ImageIcon(img));
             b.setFocusable(false);
@@ -144,7 +152,7 @@ public class frmChat extends javax.swing.JFrame {
 
     public void gerarAndEnviarMsg() {
         this.msg = "";
-        this.msg += "<img src='/pacote/images/" + Util.avatar + "' width='24px' height='24px'> ";
+        this.msg += "<img src='/figurinhas/" + Util.avatar + "' width='24px' height='24px'> ";
         this.msg += "<font color='" + Util.cor + "'><b>" + Util.nickname + " </b></font>";
 
         if (selectModo.getSelectedItem().toString().equals("Fala")) {
@@ -161,7 +169,7 @@ public class frmChat extends javax.swing.JFrame {
         //     this.msg += "<img src='images/" + selectEmoji.getSelectedItem().toString().toLowerCase() + ".png' width='15' height='15'>";
         // }
         if (figurinhaSelecionada != null) {
-            this.msg += "<br><img src='images/" + figurinhaSelecionada + "' width='64' height='64'>";
+            this.msg += "<br><img src='/figurinhas/" + figurinhaSelecionada + "' width='64' height='64'>";
         }
 
         this.msg += "<br>";

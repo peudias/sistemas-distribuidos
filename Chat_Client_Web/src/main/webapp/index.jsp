@@ -51,13 +51,13 @@
                         <td align="right"><b>Avatar:</b></td>
                         <td>
                             <input type="radio" name="radAvatar" value="AvatarHomem.png" checked>
-                            <img src="images/AvatarHomem.png" width="30" height="30">
+                            <img src="/figurinhas/AvatarHomem.png" width="30" height="30">
 
                             <input type="radio" name="radAvatar" value="AvatarIndeterminado.png">
-                            <img src="images/AvatarIndeterminado.png" width="30" height="30">
+                            <img src="/figurinhas/AvatarIndeterminado.png" width="30" height="30">
 
                             <input type="radio" name="radAvatar" value="AvatarMulher.png">
-                            <img src="images/AvatarMulher.png" width="30" height="30">
+                            <img src="/figurinhas/AvatarMulher.png" width="30" height="30">
                         </td>
                     </tr>
                     <tr>
