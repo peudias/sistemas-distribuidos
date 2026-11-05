@@ -7,6 +7,7 @@
 <%@page import="java.net.HttpURLConnection"%>
 <%@page import="java.net.URI"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/enviarErro.jspf"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,6 +39,7 @@
                     }
                 } catch(Exception error){
                     out.print("<p style='color:red'>Servidor em manutenção... aguarde.</p>");
+                    enviarErro(request, "mensagem.jsp:enviarMensagem", error);
                 }
             }
         %>

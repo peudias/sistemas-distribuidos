@@ -270,6 +270,7 @@ public class frmLogin extends javax.swing.JFrame {
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
+            Util.enviarErro("frmLogin:main", ex);
         }
         //</editor-fold>
 

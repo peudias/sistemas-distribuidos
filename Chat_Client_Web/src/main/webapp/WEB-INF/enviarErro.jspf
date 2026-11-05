@@ -1,0 +1,18 @@
+<%-- Item 4: envia ao coletor de logs do Middleware as excecoes capturadas nas paginas do cliente Web --%>
+<%!
+    private void enviarErro(jakarta.servlet.http.HttpServletRequest request, String classeMetodo, Exception erro){
+        try{
+            String registro = request.getRemoteHost() + " | " + request.getRemoteAddr() + " | " + classeMetodo + " | " + erro;
+            java.net.HttpURLConnection conexao = (java.net.HttpURLConnection) java.net.URI.create("http://127.0.0.1:6665/logs/web").toURL().openConnection();
+            conexao.setConnectTimeout(2000);
+            conexao.setReadTimeout(2000);
+            conexao.setRequestMethod("POST");
+            conexao.setDoOutput(true);
+            conexao.getOutputStream().write(registro.getBytes("UTF-8"));
+            conexao.getResponseCode();
+            conexao.disconnect();
+        } catch(Exception error){
+            System.out.println("enviarErro.jspf: Error " + error.getMessage());
+        }
+    }
+%>

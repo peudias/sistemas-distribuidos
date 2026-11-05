@@ -8,6 +8,7 @@ import pacote.Threads.DesktopRecepcaoThreads;
 import pacote.Threads.DesktopEnvioThreads;
 import pacote.Threads.WebRecepcaoThreads;
 import pacote.Threads.WebEnvioThreads;
+import pacote.Threads.LogRecepcaoThreads;
 
 /**
  *
@@ -46,6 +47,8 @@ public class PainelDeControle extends javax.swing.JFrame {
         lblSrvPublicidade = new javax.swing.JLabel();
         lblLegSrvPublicidade = new javax.swing.JLabel();
         btnControlPublicidade = new javax.swing.JToggleButton();
+        btnControlLogs = new javax.swing.JToggleButton();
+        lblSrvLogs = new javax.swing.JLabel();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -109,13 +112,21 @@ public class PainelDeControle extends javax.swing.JFrame {
         btnControlPublicidade.setName("btnControlPublicidade"); // NOI18N
         btnControlPublicidade.addActionListener(this::btnControlPublicidadeActionPerformed);
 
+        btnControlLogs.setText("Ativar");
+        btnControlLogs.addActionListener(this::btnControlLogsActionPerformed);
+
+        lblSrvLogs.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblSrvLogs.setText("Serviço de Logs");
+        lblSrvLogs.setToolTipText("");
+        lblSrvLogs.setName("lblSrvTerceiro"); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblSrvDesktop, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,8 +145,12 @@ public class PainelDeControle extends javax.swing.JFrame {
                             .addComponent(lblSrvPublicidade, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLegSrvPublicidade))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnControlPublicidade, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(btnControlPublicidade, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblSrvLogs, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnControlLogs, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,7 +184,11 @@ public class PainelDeControle extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblLegSrvPublicidade))
                     .addComponent(btnControlPublicidade, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 62, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSrvLogs)
+                    .addComponent(btnControlLogs, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -219,6 +238,17 @@ public class PainelDeControle extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnControlPublicidadeActionPerformed
 
+    private void btnControlLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnControlLogsActionPerformed
+        if(btnControlLogs.isSelected()){
+            btnControlLogs.setText("Desativar");
+            Util.threadLogRecepcaoThreads = new LogRecepcaoThreads();
+            Thread.ofVirtual().start(Util.threadLogRecepcaoThreads);
+        } else {
+            btnControlLogs.setText("Ativar");
+            Util.threadLogRecepcaoThreads.fecharServidor();
+        }
+    }//GEN-LAST:event_btnControlLogsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,6 +276,7 @@ public class PainelDeControle extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnControlDesktop;
+    private javax.swing.JToggleButton btnControlLogs;
     private javax.swing.JToggleButton btnControlPublicidade;
     private javax.swing.JToggleButton btnControlTerceiro;
     private javax.swing.JToggleButton btnControlWeb;
@@ -255,6 +286,7 @@ public class PainelDeControle extends javax.swing.JFrame {
     private javax.swing.JLabel lblLegSrvTerceiro;
     private javax.swing.JLabel lblLegSrvWeb;
     private javax.swing.JLabel lblSrvDesktop;
+    private javax.swing.JLabel lblSrvLogs;
     private javax.swing.JLabel lblSrvPublicidade;
     private javax.swing.JLabel lblSrvTerceiro;
     private javax.swing.JLabel lblSrvWeb;

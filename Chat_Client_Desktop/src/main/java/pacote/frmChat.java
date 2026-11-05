@@ -31,6 +31,7 @@ public class frmChat extends javax.swing.JFrame {
         montarPopupEmojis();
         Thread.startVirtualThread(() -> {
             String ultimoConteudo = null;
+            boolean erroEnviado = false;
             while (true) {
                 try {
                     // Socket client = new Socket("200.128.141.103", 6661);
@@ -39,6 +40,7 @@ public class frmChat extends javax.swing.JFrame {
                     String msgs = input.readUTF();
                     input.close();
                     client.close();
+                    erroEnviado = false;
                     // Só redesenha quando algo mudou, evitando que a tela pisque
                     if (!msgs.equals(ultimoConteudo)) {
                         ultimoConteudo = msgs;
@@ -50,6 +52,7 @@ public class frmChat extends javax.swing.JFrame {
                                 kit.insertHTML(doc, doc.getLength(), resolverImagens(msgs), 0, 0, null);
                             } catch (Exception ex) {
                                 System.out.println("FrmChat::FrmChat: Error " + ex.getMessage());
+                                Util.enviarErro("frmChat:frmChat", ex);
                             }
                         });
                     }
@@ -59,6 +62,11 @@ public class frmChat extends javax.swing.JFrame {
                     }
                 } catch (Exception error) {
                     System.out.println("FrmChat::FrmChat: Error " + error.getMessage());
+                    // registra só a primeira falha, porque a consulta se repete a cada 2 segundos
+                    if (!erroEnviado) {
+                        erroEnviado = true;
+                        Util.enviarErro("frmChat:frmChat", error);
+                    }
                     ultimoConteudo = null;
                     javax.swing.SwingUtilities.invokeLater(()
                             -> edtConversa.setText("<h2 style='color:red'>Servidor em manutenção... aguarde.</h2>"));
@@ -85,6 +93,7 @@ public class frmChat extends javax.swing.JFrame {
             return java.net.URI.create(Util.urlFigurinhas + nome).toURL();
         } catch (Exception error) {
             System.out.println("FrmChat::urlFigurinha: Error " + error.getMessage());
+            Util.enviarErro("frmChat:urlFigurinha", error);
             return null;
         }
     }
@@ -218,6 +227,7 @@ public class frmChat extends javax.swing.JFrame {
             }
             
         } catch (Exception e) {
+            Util.enviarErro("frmChat:gerarAndEnviarMsg", e);
             JOptionPane.showMessageDialog(null, "FrmChat::gerarAndEnviarMsg(): Erro " + e.getMessage());
             e.printStackTrace();
         }
@@ -370,6 +380,7 @@ public class frmChat extends javax.swing.JFrame {
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
+            Util.enviarErro("frmChat:main", ex);
         }
         //</editor-fold>
 

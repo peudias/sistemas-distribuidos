@@ -7,6 +7,7 @@
 <%@page import="java.net.HttpURLConnection"%>
 <%@page import="java.net.URI"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="/WEB-INF/enviarErro.jspf"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +23,14 @@
                 String conversa = new String(conexao.getInputStream().readAllBytes(), "UTF-8");
                 conexao.disconnect();
                 out.print(conversa);
+                session.removeAttribute("erroConversa");
             } catch(Exception error){
                 out.print("<h2 style='color:red'>Servidor em manutenção... aguarde.</h2>");
+                // Logs: registra só a primeira falha, porque a página recarrega a cada 5 segundos
+                if(session.getAttribute("erroConversa") == null){
+                    session.setAttribute("erroConversa", "sim");
+                    enviarErro(request, "conversa.jsp:buscarMensagens", error);
+                }
             }
         %>
     </body>
