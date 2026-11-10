@@ -199,6 +199,8 @@ public class PainelDeControle extends javax.swing.JFrame {
             btnControlDesktop.setText("Desativar");
             Util.threadDesktopRecepcaoThreads = new DesktopRecepcaoThreads();            
             Util.threadDesktopEnvioThreads = new DesktopEnvioThreads();
+            // Item 2: o laço de cada serviço roda em uma Virtual Thread, porque passa o tempo todo
+            // parado no accept() esperando conexões; o tipo de thread do atendimento é definido em cada serviço.
             Thread.ofVirtual().start(Util.threadDesktopRecepcaoThreads);
             Thread.ofVirtual().start(Util.threadDesktopEnvioThreads);
         } else {

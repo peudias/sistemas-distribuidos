@@ -56,3 +56,4 @@
 <img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='pink'><b>asd </b></font>fala: kd<br>
 <img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='pink'><b>teste312 </b></font>fala: a<br>
 <img src="/figurinhas/AvatarHomem.png" width="30" height="30"><font size="+1" color="navy"><b>TESTE123</font></b> diz: bb<br>
+<img src='/figurinhas/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>asd </b></font>fala: asdasd<br>

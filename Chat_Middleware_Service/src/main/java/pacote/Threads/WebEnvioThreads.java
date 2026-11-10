@@ -20,6 +20,9 @@ public class WebEnvioThreads implements Runnable {
     @Override
     public void run() {
         try{
+            // Item 2: Virtual Threads, uma por pedido HTTP.
+            // Cada pedido do GlassFish é curto e passa quase todo o tempo esperando a rede;
+            // Virtual Threads são baratas de criar e liberam a thread do sistema enquanto esperam.
             threads = Executors.newVirtualThreadPerTaskExecutor();
             emissor = HttpServer.create(new InetSocketAddress(utils.getPortaEnvioWeb()), 0);
             emissor.setExecutor(threads);

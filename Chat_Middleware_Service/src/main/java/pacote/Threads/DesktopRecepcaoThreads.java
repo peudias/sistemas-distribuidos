@@ -27,6 +27,9 @@ public class DesktopRecepcaoThreads implements Runnable {
             while(!this.statusServidor){
                 this.client = receptor.accept();
                 Socket conexao = this.client;
+                // Item 2: Virtual Threads, uma por pedido HTTP.
+                // Cada pedido do GlassFish é curto e passa quase todo o tempo esperando a rede;
+                // Virtual Threads são baratas de criar e liberam a thread do sistema enquanto esperam.
                 Thread.ofVirtual().start(() -> {
                     try(conexao){
                         ObjectInputStream reader = new ObjectInputStream(conexao.getInputStream());

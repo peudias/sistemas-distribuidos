@@ -25,7 +25,11 @@ public class LogRecepcaoThreads implements Runnable {
     @Override
     public void run() {
         try{
-            this.threads = Executors.newVirtualThreadPerTaskExecutor();
+            // Item 2: Platform Threads, com um pool fixo de 4.
+            // O coletor recebe poucos eventos, e as gravações já acontecem uma por vez (synchronized),
+            // então mais threads só ficariam esperando a vez de gravar. O pool fixo também limita o uso
+            // de recursos se algum cliente entrar em loop enviando erros, sem afetar os outros serviços.
+            this.threads = Executors.newFixedThreadPool(4);
             this.receptor = HttpServer.create(new InetSocketAddress(utils.getPortaRecepcaoLog()), 0);
             this.receptor.setExecutor(this.threads);
             this.receptor.createContext("/logs/", conexao -> {

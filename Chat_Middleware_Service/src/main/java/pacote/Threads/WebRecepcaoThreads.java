@@ -22,6 +22,9 @@ public class WebRecepcaoThreads implements Runnable {
     @Override
     public void run() {
         try{
+            // Item 2: Virtual Threads, uma por pedido HTTP.
+            // Cada pedido do GlassFish é curto e passa quase todo o tempo esperando a rede;
+            // Virtual Threads são baratas de criar e liberam a thread do sistema enquanto esperam.
             this.threads = Executors.newVirtualThreadPerTaskExecutor();
             this.receptor = HttpServer.create(new InetSocketAddress(utils.getPortaRecepcaoWeb()), 0);
             this.receptor.setExecutor(this.threads);

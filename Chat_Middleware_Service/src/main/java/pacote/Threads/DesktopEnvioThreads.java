@@ -26,6 +26,9 @@ public class DesktopEnvioThreads implements Runnable {
             while(!this.statusServidor){ // melhorar performance - quando chega uma msg, servidor grava no disco;
                 client = emissor.accept(); //acabou de gravar no disco? precisa disponibilizar as msg, mas nao quero acessar o disco de armazenamento a cada iteração. apenas quando chegar uma msg nova. estrutura de dados na memoria ram do middleware. gravou no disco, atualizou, a memoria ram atualiza e toda hora que alguem for buscar mensagem, pega da memoria ram.
                 Socket conexao = client;
+                // Item 2: Virtual Threads, uma por pedido HTTP.
+                // Cada pedido do GlassFish é curto e passa quase todo o tempo esperando a rede;
+                // Virtual Threads são baratas de criar e liberam a thread do sistema enquanto esperam.
                 Thread.ofVirtual().start(() -> {
                     try(conexao){
                         String msgs = Util.lerMensagensDesktop();
