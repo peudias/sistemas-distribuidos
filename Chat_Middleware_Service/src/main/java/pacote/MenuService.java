@@ -63,6 +63,7 @@ public class MenuService {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "MenuService::MenuService Error " + e.getMessage());
             System.out.println("MenuService::MenuService Error " + e.getMessage());
+            Util.registrarErro("internal", "MenuService:MenuService", e);
         }
     }
 }

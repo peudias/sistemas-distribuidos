@@ -267,6 +267,7 @@ public class PainelDeControle extends javax.swing.JFrame {
             }
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
+            Util.registrarErro("internal", "PainelDeControle:main", ex);
         }
         //</editor-fold>
 

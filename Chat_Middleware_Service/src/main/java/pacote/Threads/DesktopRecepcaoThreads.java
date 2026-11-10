@@ -49,7 +49,7 @@ public class DesktopRecepcaoThreads implements Runnable {
                     } catch(Exception error){
                         if(!this.statusServidor){
                             System.out.println("DesktopRecepcaoThreads::run: Error " + error.getMessage());
-                            Util.registrarErro("desktop", "DesktopRecepcaoThreads:run", error);
+                            Util.registrarErro("desktop", conexao.getInetAddress(), "DesktopRecepcaoThreads:run", error);
                             JOptionPane.showMessageDialog(null, "DesktopRecepcaoThreads::run: Error " + error.getMessage());
                         }
                     }
@@ -71,7 +71,7 @@ public class DesktopRecepcaoThreads implements Runnable {
             output.flush();
         } catch(Exception error){
             System.out.println("DesktopRecepcaoThreads::responderCliente: Error " + error.getMessage());
-            Util.registrarErro("desktop", "DesktopRecepcaoThreads:responderCliente", error);
+            Util.registrarErro("desktop", conexao.getInetAddress(), "DesktopRecepcaoThreads:responderCliente", error);
         }
     }
     

@@ -10,6 +10,7 @@ public class Run {
             Util.carregarMensagensDesktop();
         } catch(Exception error){
             System.out.println("Run::main: Error " + error.getMessage());
+            Util.registrarErro("internal", "Run:main", error);
             JOptionPane.showMessageDialog(null, "Run::main: Error " + error.getMessage());
             System.exit(1);
         }

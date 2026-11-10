@@ -30,7 +30,7 @@ public class WebEnvioThreads implements Runnable {
                     conexao.getResponseBody().write(msgs);
                 } catch(Exception error){
                     System.out.println("WebEnvioThreads::run: Error " + error.getMessage());
-                    Util.registrarErro("web", "WebEnvioThreads:run", error);
+                    Util.registrarErro("web", conexao.getRemoteAddress().getAddress(), "WebEnvioThreads:run", error);
                 }
             });
             emissor.start();

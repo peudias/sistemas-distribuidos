@@ -62,6 +62,13 @@ public class Util {
        return this.pathDesktopTxt;
    }
    
+   // Item 5: erro do Middleware sem cliente envolvido (inicialização, porta ocupada, desligamento).
+   // Repassa para o método sem cliente, que grava INTERNO/NÃO APLICÁVEL na identificação
+   public static void registrarErro(String servico, String classeMetodo, Exception erro){
+       registrarErro(servico, null, classeMetodo, erro);
+   }
+    
+   
    public static void carregarMensagensDesktop() throws Exception {
        FileReader fReader = new FileReader(pathDesktopTxt);
        BufferedReader buffer = new BufferedReader(fReader);
@@ -85,23 +92,34 @@ public class Util {
        return msgs.toString();
    }
    
-    // Registra um erro do próprio Middleware no arquivo do serviço onde ele aconteceu.
+    // Item 5: Registra um erro do próprio Middleware no arquivo do serviço onde ele aconteceu sem misturar outros serviços.
+    // server_middleware_<serviço>_erros.log (desktop, web, internal ou qualquer serviço futuro)
     // Grava direto no arquivo, sem passar pelo coletor, para funcionar mesmo com o coletor desligado.
     // O synchronized impede que erros simultâneos se misturem no arquivo.
-    public static synchronized void registrarErro(String servico, String classeMetodo, Exception erro){
+    public static synchronized void registrarErro(String servico, InetAddress cliente, String classeMetodo, Exception erro){
         try{
-            InetAddress maquina = InetAddress.getLocalHost();
+            // Identifica o cliente causador quando houver; senão, indica INTERNO/NÃO APLICÁVEL
+            String identificacao = "INTERNO/NÃO APLICÁVEL";
+            String ip = "NÃO APLICÁVEL";
+            if(cliente != null){
+                identificacao = cliente.getHostName();
+                ip = cliente.getHostAddress();
+            }
             String dataHora = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
-            String registro = dataHora + " | " + maquina.getHostName() + " | " + maquina.getHostAddress() + " | " + classeMetodo + " | " + erro;
-            new File(pathLogs).mkdirs();
-            // O true acrescenta no fim do arquivo, sem apagar os registros anteriores
-            try(FileWriter fwriter = new FileWriter(pathLogs + "server_middleware_" + servico + ".log", true)){
-                fwriter.write(registro.replaceAll("[\\r\\n]+", " "));
+            String registro = dataHora + " | " + servico.toUpperCase() + " | " + identificacao + " | " + ip + " | " +  classeMetodo + " | " + erro;
+            
+            // Uma gravação por vez, para erros simultâneos de várias threads não se misturarem
+            synchronized(Util.class){
+                new File(pathLogs).mkdirs();
+                // o true acrescenta no fim do arquivo, preservando o histórico
+                try(FileWriter fwriter = new FileWriter(pathLogs + "server_middleware_" + servico + "_errors.log", true)){
+                    fwriter.write(registro.replaceAll("[\\r\\n]+", " "));
                 fwriter.write(System.lineSeparator());
                 fwriter.write(System.lineSeparator());
+                }
             }
         } catch(Exception error){
             System.out.println("Util::registrarErro: Error " + error.getMessage());
         }
     }
-}
+}    

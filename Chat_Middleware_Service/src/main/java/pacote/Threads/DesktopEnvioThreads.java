@@ -34,7 +34,7 @@ public class DesktopEnvioThreads implements Runnable {
                         output.close();
                     } catch (Exception error){
                         System.out.println("DesktopEnvioThreads::Run: Error " + error.getMessage());
-                        Util.registrarErro("desktop", "DesktopEnvioThreads:run", error);
+                        Util.registrarErro("desktop", conexao.getInetAddress(), "DesktopEnvioThreads:run", error);
                     }
                 });
             }

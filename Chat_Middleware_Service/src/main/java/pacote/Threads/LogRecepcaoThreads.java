@@ -62,7 +62,7 @@ public class LogRecepcaoThreads implements Runnable {
                     responderCliente(conexao, 200);
                 } catch(Exception error){
                     System.out.println("LogRecepcaoThreads::run: Error " + error.getMessage());
-                    Util.registrarErro("logs", "LogRecepcaoThreads:run", error);
+                    Util.registrarErro("logs", conexao.getRemoteAddress().getAddress(), "LogRecepcaoThreads:run", error);
                 }
             });
             this.receptor.start();
@@ -80,7 +80,7 @@ public class LogRecepcaoThreads implements Runnable {
             conexao.sendResponseHeaders(status, -1);
         } catch(Exception error){
             System.out.println("LogRecepcaoThreads::responderCliente: Error " + error.getMessage());
-            Util.registrarErro("logs", "LogRecepcaoThreads:responderCliente", error);
+            Util.registrarErro("logs", conexao.getRemoteAddress().getAddress(), "LogRecepcaoThreads:responderCliente", error);
         }
     }
     
