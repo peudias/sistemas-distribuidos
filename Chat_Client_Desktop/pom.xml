@@ -22,7 +22,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>26</maven.compiler.release>
-        <exec.mainClass>com.chatsd.chat_client_desktop.Chat_Client_Desktop</exec.mainClass>
+        <exec.mainClass>pacote.frmLogin</exec.mainClass>
     </properties>
 
      <build>
@@ -35,5 +35,19 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <!-- Item 6: indica a classe principal no JAR, para rodar sem o NetBeans com java -jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>pacote.frmLogin</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

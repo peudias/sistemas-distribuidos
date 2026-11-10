@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>26</maven.compiler.release>
-        <exec.mainClass>com.chatsd.chat_middeware_service.Chat_Middeware_Service</exec.mainClass>
+        <exec.mainClass>pacote.Run</exec.mainClass>
     </properties>
     <name>Chat_Middeware_Service</name>
     <build>
@@ -20,5 +20,19 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <!-- Item 6: indica a classe principal no JAR, para rodar sem o NetBeans com java -jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>pacote.Run</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

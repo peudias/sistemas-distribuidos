@@ -275,6 +275,12 @@ public class frmLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        // Item 6: permite apontar para o servidor na rede, por exemplo: java -jar Chat_Client_Desktop-1.0-SNAPSHOT.jar 192.168.0.10
+        if (args.length > 0) {
+            Util.servidor = args[0];
+            Util.urlFigurinhas = Util.urlFigurinhas.replace("localhost", args[0]);
+            Util.urlLogs = Util.urlLogs.replace("localhost", args[0]);
+        }
         java.awt.EventQueue.invokeLater(() -> new frmLogin().setVisible(true));
     }
 

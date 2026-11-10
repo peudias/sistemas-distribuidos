@@ -57,3 +57,7 @@
 <img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='pink'><b>teste312 </b></font>fala: a<br>
 <img src="/figurinhas/AvatarHomem.png" width="30" height="30"><font size="+1" color="navy"><b>TESTE123</font></b> diz: bb<br>
 <img src='/figurinhas/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>asd </b></font>fala: asdasd<br>
+<img src="/figurinhas/AvatarHomem.png" width="30" height="30"><font size="+1" color="navy"><b>t4</font></b> diz: d<br>
+<img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='pink'><b>t2 </b></font>fala: b<br>
+<img src='/figurinhas/AvatarMulher.png' width='24px' height='24px'> <font color='green'><b>t3 </b></font>fala: a<br>
+<img src='/figurinhas/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>t1 </b></font>fala: c<br>

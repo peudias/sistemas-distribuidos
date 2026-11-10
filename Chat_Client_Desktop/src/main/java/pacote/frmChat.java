@@ -35,7 +35,7 @@ public class frmChat extends javax.swing.JFrame {
             while (true) {
                 try {
                     // Socket client = new Socket("200.128.141.103", 6661);
-                    Socket client = new Socket("localhost", 6661);
+                    Socket client = new Socket(Util.servidor, 6661);
                     ObjectInputStream input = new ObjectInputStream(client.getInputStream());
                     String msgs = input.readUTF();
                     input.close();
@@ -205,7 +205,7 @@ public class frmChat extends javax.swing.JFrame {
         }
         
         try {
-            Socket client = new Socket("localhost", 6662);
+            Socket client = new Socket(Util.servidor, 6662);
             client.setSoTimeout(3000);
             
             ObjectOutputStream output = new ObjectOutputStream(client.getOutputStream());

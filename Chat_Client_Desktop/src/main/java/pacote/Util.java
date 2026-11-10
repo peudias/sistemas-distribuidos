@@ -5,6 +5,8 @@ public class Util {
     public static String nickname = "";    
     public static String cor = "";    
     public static String avatar = "";
+    // Item 6: endereço do Middleware; trocado pelo argumento do java -jar para rodar em rede
+    public static String servidor = "localhost";
     public static String urlFigurinhas = "http://localhost:8080/figurinhas/";
     public static String urlLogs = "http://localhost:6665/logs/desktop";
 
