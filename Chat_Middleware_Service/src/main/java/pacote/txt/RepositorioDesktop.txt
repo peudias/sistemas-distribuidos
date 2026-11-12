@@ -61,3 +61,8 @@
 <img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='pink'><b>t2 </b></font>fala: b<br>
 <img src='/figurinhas/AvatarMulher.png' width='24px' height='24px'> <font color='green'><b>t3 </b></font>fala: a<br>
 <img src='/figurinhas/AvatarHomem.png' width='24px' height='24px'> <font color='blue'><b>t1 </b></font>fala: c<br>
+<img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>PEDRO </b></font>fala: OI<br>
+<img src='/figurinhas/AvatarIndeterminado.png' width='24px' height='24px'> <font color='blue'><b>AWODS </b></font>fala: FALA<br>
+<img src="/figurinhas/AvatarHomem.png" width="30" height="30"><font size="+1" color="navy"><b>LULU</font></b> diz: TCAU<br>
+<img src="/figurinhas/AvatarIndeterminado.png" width="30" height="30"><font size="+1" color="purple"><b>Daniel</font></b> diz: Teste <img src="/figurinhas/coracao.png" width="30" height="30"><br>
+<img src='/figurinhas/AvatarMulher.png' width='24px' height='24px'> <font color='pink'><b>Paulo </b></font><font size='-1'><i>sussura: </i>olá</font><br><img src='/figurinhas/sonic-thumbs-up.gif' width='64' height='64'><br>
